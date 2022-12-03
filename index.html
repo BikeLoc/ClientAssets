@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="leaflet.css" />
+    <script type="text/javascript" charset="utf-8" src="leaflet.js"></script>
+  </head>
+  <body>
+    <div style="margin-top: 400px" class="flex-container">
+      <div class="flex-items">
+        <h1>0.4 Pure HTML for BikeLoc Application :D</h1>
+      </div>
+      <div class="flex-items">
+        <div class="Input">
+          <input
+            type="input"
+            class="Input-text"
+            placeholder="..."
+            autocomplete="off"
+            maxlength="512"
+            name="search"
+            id="search"
+            required
+          /><button onclick="getLocationConstant()" >Click</button>
+          <label for="search" class="Input-label">...</label>
+        </div>
+      </div>
+      <div class="flex-items">
+        <div style="height: 400px; margin-top: 14px" id="map"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const map = L.map("map").setView([51.505, -0.09], 13);
+
+    L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> Gekware',
+    }).addTo(map);
+
+function getLocationConstant()
+{
+  if(navigator.geolocation)
+  {
+   navigator.geolocation.getCurrentPosition(onGeoSuccess,onGeoError);
+  } else {
+   alert("No GPS support");
+  }
+}
+
+
+function onGeoSuccess(event)
+{
+    map.setView([event.coords.latitude, event.coords.longitude], 13);
+}
+
+
+function onGeoError(event)
+{
+  alert("Error code " + event.code + ". " + event.message);
+}
+  </script>
+</html>
